@@ -1,0 +1,9 @@
+{
+    "entryPoints": ["src/*/**"], 
+    "out": "docs",                  
+    "tsconfig": "tsconfig.json",    
+    "theme": "default",             
+    "exclude": ["**/node_modules/**"],
+    "excludePrivate": false,
+    "excludeProtected": false
+  }
