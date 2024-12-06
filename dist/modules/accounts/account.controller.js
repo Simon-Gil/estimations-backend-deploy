@@ -36,7 +36,7 @@ class AccountController {
                     throw new AppError_1.AppError('No tienes los permisos necesarios para asignar responsable comercial de cuenta', 403);
                 }
             }
-            const account = await account_service_1.accountService.createAccount(data.email, data.name, data.commercialManager, data.technicalManager, data.isCustomer);
+            const account = await account_service_1.accountService.createAccount(data.email, data.name, data.legalName, data.cif, data.tlf, data.commercialManager, data.technicalManager, data.isCustomer);
             res.status(200).json(account);
         }
         catch (err) {
@@ -105,7 +105,7 @@ class AccountController {
                     throw new AppError_1.AppError('No tienes los permisos necesarios para asignar responsable técnico de cuenta', 403);
                 }
             }
-            const account = await account_service_1.accountService.updateAccount(id, data.name, data.email, data.commercialManager, data.technicalManager, data.isCustomer);
+            const account = await account_service_1.accountService.updateAccount(id, data.name, data.email, data.legalName, data.cif, data.tlf, data.commercialManager, data.technicalManager, data.isCustomer);
             res.status(200).json({ message: 'Cuenta actualizada correctamente', account: account });
         }
         catch (err) {

@@ -74,17 +74,29 @@ __decorate([
     __metadata("design:type", String)
 ], AccountEntity.prototype, "id", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], AccountEntity.prototype, "email", void 0);
 __decorate([
-    (0, typeorm_1.Column)(),
+    (0, typeorm_1.Column)({ unique: true }),
     __metadata("design:type", String)
 ], AccountEntity.prototype, "name", void 0);
 __decorate([
     (0, typeorm_1.Column)({ name: 'is_customer', default: false }),
     __metadata("design:type", Boolean)
 ], AccountEntity.prototype, "isCustomer", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ name: 'legal_name', nullable: true, unique: true }),
+    __metadata("design:type", String)
+], AccountEntity.prototype, "legalName", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true, unique: true }),
+    __metadata("design:type", String)
+], AccountEntity.prototype, "cif", void 0);
+__decorate([
+    (0, typeorm_1.Column)({ nullable: true, unique: true }),
+    __metadata("design:type", Number)
+], AccountEntity.prototype, "tlf", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => user_entity_1.UserEntity, user => user.technicalManagedAccounts, { nullable: true }),
     (0, typeorm_1.JoinColumn)({ name: 'technical_manager_id' }),

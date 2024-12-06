@@ -9,13 +9,13 @@ const proposal_repository_1 = require("./proposal.repository");
 const opportunity_service_1 = require("../opportunity/opportunity.service");
 const authorization_utility_1 = require("../../common/utils/authorization.utility");
 const ProposalStatus_1 = require("./ProposalStatus");
-const pdf_utility_1 = require("./file-generators/pdf.utility");
+const pdf_utility_1 = require("../file-generators/pdf.utility");
 const OpportunityStatus_1 = require("../opportunity/OpportunityStatus");
 const estimation_service_1 = require("./../estimations/estimation.service");
 const date_utility_1 = require("../../common/utils/date.utility");
 const settings_service_1 = require("../settings/settings.service");
 const validator_utility_1 = require("../../common/utils/validator.utility");
-const doc_utility_1 = require("./file-generators/doc.utility");
+const doc_utility_1 = require("../file-generators/doc.utility");
 /**
  * Servicio encargado de gestionar las propuestas comerciales.
  */

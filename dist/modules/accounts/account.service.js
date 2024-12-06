@@ -158,26 +158,50 @@ class AccountService {
     * @throws {AppError} Si falta información requerida, como el email o el nombre (400).
     * @throws {AppError} Si no se puede asignar el responsable comercial o técnico (400).
     */
-    async createAccount(email, name, commercialManagerId, technicalManagerId, isCustomer) {
+    async createAccount(email, name, legalName, cif, tlf, commercialManagerId, technicalManagerId, isCustomer) {
         const newAccount = new account_entity_1.AccountEntity();
         // Asignación de email
         if (email) {
-            newAccount.email = email;
             if (await account_repository_1.accountRepo.findOne({ where: { email: email } })) {
                 throw new AppError_1.AppError('El email introducido está asignado a otra cuenta', 400);
             }
+            newAccount.email = email;
         }
         else {
             throw new AppError_1.AppError('No se ha recibido email', 400);
         }
         if (name) {
-            newAccount.name = name;
             if (await account_repository_1.accountRepo.findOne({ where: { name: name } })) {
                 throw new AppError_1.AppError('El nombre introducido está asignado a otra cuenta', 400);
             }
+            newAccount.name = name;
         }
         else {
             throw new AppError_1.AppError('No se ha recibido el nombre de la cuenta', 400);
+        }
+        // Asignación de razón social y comprobación de unicidad
+        if (legalName) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { legalName: legalName } });
+            if (existingAccount) {
+                throw new AppError_1.AppError('La razón social recibida está asignada a otra cuenta', 400);
+            }
+            newAccount.legalName = legalName;
+        }
+        // Asignación  de código de identificación fiscal y comprobación de unicidad
+        if (cif) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { cif: cif } });
+            if (existingAccount) {
+                throw new AppError_1.AppError('El CIF recibido está asignado a otra cuenta', 400);
+            }
+            newAccount.cif = cif;
+        }
+        // Asignación de teléfono y comprobación de unicidad
+        if (tlf) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { tlf: tlf } });
+            if (existingAccount) {
+                throw new AppError_1.AppError('El número de teléfono recibido está asignado a otra cuenta', 400);
+            }
+            newAccount.tlf = tlf;
         }
         // Asignación de responsable comercial
         if (!commercialManagerId) {
@@ -293,22 +317,48 @@ class AccountService {
      * @returns Un objeto `AccountDTO` con la información de la cuenta actualizada.
      * @throws {AppError} Si el correo electrónico está asignado a otra cuenta o si ocurre un error al actualizar la cuenta (409, 500).
      */
-    async updateAccount(id, name, email, commercialManagerId, technicalManagerId, isCustomer) {
+    async updateAccount(id, name, email, legalName, cif, tlf, commercialManagerId, technicalManagerId, isCustomer) {
         const accountEntity = await this.getAccountById(id);
         //Asignación de nombre
         if (name) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { name: name } });
+            if (existingAccount && existingAccount.id !== id) {
+                throw new AppError_1.AppError('El nombre recibido está asignado a otra cuenta', 400);
+            }
             accountEntity.name = name;
         }
         //Asignación de email
         if (email) {
             // Comprobar que el email no está asignado a otra cuenta
             const existingAccount = await this.getAccountByEmail(email);
-            if (existingAccount && existingAccount.id !== accountEntity.id) {
+            if (existingAccount && existingAccount.id !== id) {
                 throw new AppError_1.AppError('El email está asignado a otra cuenta cliente', 409);
             }
-            else {
-                accountEntity.email = email;
+            accountEntity.email = email;
+        }
+        // Asignación de razón social y comprobación de unicidad
+        if (legalName) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { legalName: legalName } });
+            if (existingAccount && existingAccount.id !== id) {
+                throw new AppError_1.AppError('La razón social recibida está asignada a otra cuenta', 400);
             }
+            accountEntity.legalName = legalName;
+        }
+        // Asignación  de código de identificación fiscal y comprobación de unicidad
+        if (cif) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { cif: cif } });
+            if (existingAccount && existingAccount.id !== id) {
+                throw new AppError_1.AppError('El CIF recibido está asignado a otra cuenta', 400);
+            }
+            accountEntity.cif = cif;
+        }
+        // Asignación de teléfono y comprobación de unicidad
+        if (tlf) {
+            const existingAccount = await account_repository_1.accountRepo.findOne({ where: { tlf: tlf } });
+            if (existingAccount && existingAccount.id !== id) {
+                throw new AppError_1.AppError('El número de teléfono recibido está asignado a otra cuenta', 400);
+            }
+            accountEntity.tlf = tlf;
         }
         // Asignación de responsable comercial
         if (commercialManagerId) {

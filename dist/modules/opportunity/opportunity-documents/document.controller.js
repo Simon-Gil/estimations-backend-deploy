@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.documentController = void 0;
-const file_storage_service_1 = require("./file-storage/file-storage.service/file-storage.service");
+const file_storage_service_1 = require("../../file-storage/file-storage.service");
 const document_service_1 = require("./document.service");
 class DocumentController {
     async getUploadSignedURL(req, res, next) {
