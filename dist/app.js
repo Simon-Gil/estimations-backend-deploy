@@ -46,7 +46,6 @@ const corsOptions = {
     credentials: true,
     allowedHeaders: ['Content-Type', 'Authorization']
 };
-
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 // Rate limiting 
