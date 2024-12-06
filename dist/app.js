@@ -45,6 +45,7 @@ const corsOptions = {
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 };
+console.log('AQUI ESTA LA URL:', process.env.FRONTEND_URL)
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.json());
 // Rate limiting 
