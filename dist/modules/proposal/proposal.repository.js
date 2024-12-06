@@ -36,7 +36,25 @@ class ProposalRepository extends typeorm_1.Repository {
                             id: user.id
                         }
                     }
-                }
+                },
+                {
+                    opportunity: {
+                        account: {
+                            commercialManager: {
+                                id: user.id
+                            }
+                        }
+                    }
+                },
+                {
+                    opportunity: {
+                        account: {
+                            technicalManager: {
+                                id: user.id
+                            }
+                        }
+                    }
+                },
             ],
             relations: [
                 'estimation.estimationUsers.user',
