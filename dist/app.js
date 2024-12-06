@@ -42,7 +42,7 @@ const app = (0, express_1.default)();
 // Middlewares
 const corsOptions = {
     origin: process.env.FRONTEND_URL,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
     credentials: true,
 };
 app.use((0, cors_1.default)(corsOptions));
